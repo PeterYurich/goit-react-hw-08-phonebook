@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts, visibleContacts } from 'redux/selectors';
-import { deleteContact, fetchContacts } from 'redux/operations';
+// import { deleteContact, fetchContacts } from 'redux/operations';
 
 import css from 'components/styles.module.scss';
 
@@ -11,12 +11,12 @@ const ContactList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    // dispatch(fetchContacts());
   }, [dispatch]);
 
   const contacts = useSelector(selectContacts);
   const handleDelete = (id) => {
-    dispatch(deleteContact(id))
+    // dispatch(deleteContact(id))
   };
 
   const toRender = useSelector(visibleContacts)

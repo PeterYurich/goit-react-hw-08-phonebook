@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { register } from 'auth/authOperations';
+import { logIn } from 'auth/authOperations';
 
 import css from '../../components/styles.module.scss'
 
-export const RegistrationForm = () => {
-  const [name, setName] = useState();
+export const AuthorisationForm = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -14,10 +13,6 @@ export const RegistrationForm = () => {
     console.log(name, value);
 
     switch (name) {
-      case 'name':
-        setName(value);
-        break;
-
       case 'email':
         setEmail(value);
         break;
@@ -36,16 +31,12 @@ export const RegistrationForm = () => {
     evt.preventDefault();
 
     console.log(evt.target.value);
-    dispatch(register({ name, email, password}));
+    dispatch(logIn({ email, password}));
   };
 
   return (
     <form onSubmit={handleSubmit} className = {css.form}>
-        REGISTRATION:
-      <label className={css.label}>
-        Nickname
-        <input type="name" name="name" onChange={controlInput} />
-      </label>
+        AUTHORISATION:
       <label className={css.label}>
         Email
         <input type="email" name="email" onChange={controlInput} />
@@ -54,7 +45,7 @@ export const RegistrationForm = () => {
         Password
         <input type="passwword" name="password" onChange={controlInput} />
       </label>
-      <button type="submit" className={css.button}>Sign Up</button>
+      <button type="submit" className={css.button}>Sign In</button>
     </form>
   );
 };

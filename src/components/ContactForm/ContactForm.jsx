@@ -34,7 +34,7 @@ const controlInput = evt => {
       return
     }
 
-    dispatch(addContact({name, phone, id: name}))
+    dispatch(addContact({name, phone}))
     setName('')
     setPhone('')
 
@@ -42,6 +42,7 @@ const controlInput = evt => {
 
   return (
     <form onSubmit={handleSubmit} className={css.form}>
+      ADD CONTACT
       <label className={css.label}>
         Name:
         <input
