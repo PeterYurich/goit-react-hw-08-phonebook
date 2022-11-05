@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { selectAuth } from 'redux/selectors';
 import { logout } from 'redux/auth/authOperations';
-import { fetchContacts } from 'redux/contacts/contactsOperations';
+// import { fetchContacts } from 'redux/contacts/contactsOperations';
 
 export default function NavbarAuth() {
   const authData = useSelector(selectAuth);

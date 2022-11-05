@@ -43,8 +43,6 @@ const LoginForm = () => {
     return <Navigate to="/contacts" />
   }
 
-  const initValue = 'asdf'
-
   return (
     <div className='container'>
       <h1>AUTHORISATION:</h1>
