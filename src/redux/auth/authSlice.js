@@ -15,30 +15,23 @@ const authSlice = createSlice({
             state.token = payload.token;
             state.isLoggedIn = true;
         },
+
         [login.fulfilled](state, { payload }) {
             state.user = payload.user;
             state.token = payload.token;
             state.isLoggedIn = true;
         },
-        [logout.pending]() {
-            // console.log('logout pending')
-        },
+
         [logout.fulfilled](state) {
-            console.log('loged out')
             state.user = null;
             state.token = '';
             state.isLoggedIn = false;
         },
-        [logout.rejected]() {
-            console.log('logout error')
-        },
+
         [fetchCurrentUser.fulfilled](state, { payload }) {
             state.user = payload;
             state.isLoggedIn = true;
         },
-        [fetchCurrentUser.rejected]() {
-            // console.log('fetchCurrentUser.rejected')
-        }
     }
 })
 

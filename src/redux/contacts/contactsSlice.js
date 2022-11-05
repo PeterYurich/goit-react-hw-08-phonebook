@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchContacts, deleteContact, addContact } from "./contactsOperations";
 
 const handlePending = state => {
-    // console.log('contacts.rejected')
     state.isLoading = true;
 };
 
 const handleRejected = (state, action) => {
     state.isLoading = false;
     state.error = action.payload;
+    state.items = [];
 };
 
 const contactsSlice = createSlice({
