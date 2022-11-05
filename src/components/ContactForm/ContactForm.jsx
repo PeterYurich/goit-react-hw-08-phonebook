@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
-import { addContact } from 'redux/operations';
+import { addContact } from 'redux/contacts/contactsOperations';
 
 import css from '../../components/styles.module.scss';
+import { selectAuth } from 'redux/selectors';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
   const contacts = useSelector(selectContacts);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const authData = useSelector(selectAuth)
   
 const controlInput = evt => {
     const { name: inputName, value: inputValue } = evt.target;
@@ -20,7 +22,7 @@ const controlInput = evt => {
         setName(inputValue);
         break;
       case 'phone':
-        setPhone(inputValue);
+        setNumber(inputValue);
         break;
       default:
         return;
@@ -29,14 +31,17 @@ const controlInput = evt => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
+    if (!authData.isLoggedIn) {
+      alert('Sign up to start creating your contact list or log in if you have your own account')
+    }
     if (contacts.find(person => person.name.toLowerCase() === name.toLowerCase())) {
       alert(`A contact with the name "${name}" already exists!`)
       return
     }
 
-    dispatch(addContact({name, phone}))
+    dispatch(addContact({name, number}))
     setName('')
-    setPhone('')
+    setNumber('')
 
   };
 
@@ -61,7 +66,7 @@ const controlInput = evt => {
         <input
           className={css.input}
           onChange={controlInput}
-          value={phone}
+          value={number}
           type="tel"
           name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

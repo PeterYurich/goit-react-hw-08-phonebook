@@ -1,5 +1,5 @@
 {
-  "name": "hw-peteryurich",
+  "name": "hw-PeterYurich",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://peteryurich.github.io/goit-react-hw-08-phonebook/",
@@ -19,6 +19,7 @@
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
     "sass": "^1.54.9",
     "web-vitals": "^2.1.3"
   },

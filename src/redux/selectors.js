@@ -15,3 +15,4 @@ export const visibleContacts = createSelector([selectContacts, selectFilter],
           return filteredContacts || contacts;
     })
 
+    export const selectAuth = state => state.auth
