@@ -9,12 +9,12 @@ import { selectAuth } from 'redux/selectors';
 import css from '../../components/styles.module.scss'
 
 const LoginForm = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const authData = useSelector(selectAuth)
 
-  const controlInput = evt => {
+  const inputController = evt => {
     const { name, value } = evt.target;
 
     switch (name) {
@@ -41,7 +41,9 @@ const LoginForm = () => {
 
   if (authData.isLoggedIn) {
     return <Navigate to="/contacts" />
-  } 
+  }
+
+  const initValue = 'asdf'
 
   return (
     <div className='container'>
@@ -49,17 +51,18 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit} className={css.form}>
         <label className={css.label}>
           Email
-          <input type="email" 
-          name="email" 
-          onChange={controlInput} 
-          value = {email}/>
+          <input type="email"
+            name="email"
+            onChange={inputController}
+            value={email} 
+            />
         </label>
         <label className={css.label}>
           Password
-          <input type="passwword" 
-          name="password" 
-          onChange={controlInput} 
-          value = {password}/>
+          <input type="passwword"
+            name="password"
+            onChange={inputController}
+            value={password} />
         </label>
         <button type="submit" className={css.button}>Log In</button>
       </form>

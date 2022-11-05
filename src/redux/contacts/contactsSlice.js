@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchContacts, deleteContact, addContact } from "./contactsOperations";
 
 const handlePending = state => {
+    // console.log('contacts.rejected')
     state.isLoading = true;
 };
 
@@ -26,7 +27,6 @@ const contactsSlice = createSlice({
             state.items = action.payload;
         },
         [fetchContacts.rejected]: handleRejected,
-
 
         [deleteContact.pending]: handlePending,
         [deleteContact.fulfilled](state, action) {

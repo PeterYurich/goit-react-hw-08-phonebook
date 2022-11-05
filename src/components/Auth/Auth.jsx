@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { selectAuth } from 'redux/selectors';
 import { logout } from 'redux/auth/authOperations';
+import { fetchContacts } from 'redux/contacts/contactsOperations';
 
 export default function NavbarAuth() {
   const authData = useSelector(selectAuth);
@@ -11,8 +12,16 @@ export default function NavbarAuth() {
 
   const handleLogout = () => {
     dispatch(logout(authData.token));
-    dispatch('contacts/fetchContacts/rejected');
-  }
+    // dispatch(fetchContacts())
+    // dispatch({
+    //   type: 'contacts/fetchAll/rejected',
+    //   payload: {
+    //     items: [],
+    //     isLoading: false,
+    //     error: null,
+    //   },
+    // });
+  };
 
   return (
     <div className={css.auth}>
@@ -26,7 +35,10 @@ export default function NavbarAuth() {
           </NavLink>
         </div>
       ) : (
-        <button onClick={handleLogout}>Log out</button>
+        <div>
+          <p>Hallo, {authData.user.name}</p>
+          <button onClick={handleLogout}>Log out</button>
+        </div>
       )}
     </div>
   );

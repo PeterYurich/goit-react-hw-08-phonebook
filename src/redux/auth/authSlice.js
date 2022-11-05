@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signup, login, logout } from './authOperations'
+import { signup, login, logout, fetchCurrentUser } from './authOperations'
 
 const authSlice = createSlice({
     name: 'auth',
@@ -21,7 +21,7 @@ const authSlice = createSlice({
             state.isLoggedIn = true;
         },
         [logout.pending]() {
-            console.log('logout pending')
+            // console.log('logout pending')
         },
         [logout.fulfilled](state) {
             console.log('loged out')
@@ -29,9 +29,16 @@ const authSlice = createSlice({
             state.token = '';
             state.isLoggedIn = false;
         },
-        [logout.rejected](state) {
+        [logout.rejected]() {
             console.log('logout error')
         },
+        [fetchCurrentUser.fulfilled](state, { payload }) {
+            state.user = payload;
+            state.isLoggedIn = true;
+        },
+        [fetchCurrentUser.rejected]() {
+            // console.log('fetchCurrentUser.rejected')
+        }
     }
 })
 
