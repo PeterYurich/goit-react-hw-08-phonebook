@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkhw_PeterYurich=self.webpackChunkhw_PeterYurich||[]).push([[280],{7280:function(e,n,r){r.r(n);var c=r(184);n.default=function(){return(0,c.jsx)("div",{className:"container",children:(0,c.jsx)("h1",{children:" The page does not exist"})})}}}]);
+//# sourceMappingURL=280.18981d53.chunk.js.map
