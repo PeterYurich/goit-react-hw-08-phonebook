@@ -1,7 +1,9 @@
-export const NotFoundPage = () => {
+const NotFoundPage = () => {
     return (
         <div className="container">
-            <h1> The page is not exist</h1>
+            <h1> The page does not exist</h1>
         </div>
     )
 }
+
+export default NotFoundPage

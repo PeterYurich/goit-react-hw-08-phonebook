@@ -5,7 +5,6 @@ axios.defaults.baseURL = 'https://connections-api.herokuapp.com'
 
 export const fetchContacts = createAsyncThunk("contacts/fetchAll",
     async (_, thunkAPI) => {
-    console.log('asdf')
         try {
             const response = await axios.get("/contacts");
             return response.data
