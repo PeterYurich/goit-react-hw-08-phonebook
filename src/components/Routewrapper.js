@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 import { selectAuth } from "redux/selectors";
-import Phonebook from "pages/PhonebookPage/Phonebook";
 
 export const PrivateRoute = () => {
     const isLoggedIn = useSelector(selectAuth).isLoggedIn;
