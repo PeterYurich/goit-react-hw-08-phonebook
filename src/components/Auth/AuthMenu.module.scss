@@ -3,8 +3,12 @@
     align-items: center;
 }
 
-.authLink:not(:last-child):not(:last-child) {
-    margin-right: 20px;
+.authLink {
+    text-decoration: none;
+    :hover {
+        scale: 1.03; 
+    }
+
 }
 
 .logedUser {
