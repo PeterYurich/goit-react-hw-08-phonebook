@@ -16,7 +16,6 @@ export const UserRoutes = () => {
       <Routes>
         <Route path="/" element={<PrivateRoute />}>
           <Route  path='/contacts' element={<Phonebook />}></Route>
-          {/* <Phonebook></Phonebook> */}
         </Route>
         <Route path="/" element={<PublicRoute />}>
           <Route path="/signup" element={<SignupPage />}></Route>

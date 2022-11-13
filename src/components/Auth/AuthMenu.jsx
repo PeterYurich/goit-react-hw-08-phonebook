@@ -1,9 +1,11 @@
-import { NavLink } from 'react-router-dom';
-import css from './Auth.module.scss';
+import css from './AuthMenu.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectAuth } from 'redux/selectors';
 import { logout } from 'redux/auth/authOperations';
+
+import { Button } from '@mui/material';
+import {Typography} from '@mui/material';
 
 export default function NavbarAuth() {
   const authData = useSelector(selectAuth);
@@ -24,18 +26,20 @@ export default function NavbarAuth() {
   return (
     <div className={css.auth}>
       {!authData.isLoggedIn ? (
-        <div>
-          <NavLink className={css.authLink} to="/signup">
+        <div className={css.auth}>
+          <Button className={css.authLink} to="/signup">
             Sign up
-          </NavLink>
-          <NavLink className={css.authLink} to="/login">
+          </Button>
+          <Button className={css.authLink} to="/login">
             Log in
-          </NavLink>
+          </Button>
         </div>
       ) : (
-        <div>
-          <p>Hallo, {authData.user.name}</p>
-          <button onClick={handleLogout}>Log out</button>
+        <div className={css.logedUser}>
+          <Typography className={css.helloing}>
+            Hallo, {authData.user.name}
+          </Typography>
+          <Button onClick={handleLogout}>Log out</Button>
         </div>
       )}
     </div>

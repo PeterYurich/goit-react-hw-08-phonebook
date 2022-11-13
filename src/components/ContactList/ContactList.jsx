@@ -3,9 +3,17 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectContacts, visibleContacts } from 'redux/selectors';
-import { deleteContact, fetchContacts } from 'redux/contacts/contactsOperations';
+import {
+  deleteContact,
+  fetchContacts,
+} from 'redux/contacts/contactsOperations';
 
-import css from 'components/styles.module.scss';
+import css from './ContactList.module.scss';
+import IconButton from '@mui/material/IconButton';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import { Typography } from '@mui/material';
+
+import { ThreeDots } from 'react-loader-spinner';
 
 const ContactList = () => {
   const dispatch = useDispatch();
@@ -15,28 +23,38 @@ const ContactList = () => {
   }, [dispatch]);
 
   const contacts = useSelector(selectContacts);
-  const handleDelete = (id) => {
-    dispatch(deleteContact(id))
+  const handleDelete = id => {
+    dispatch(deleteContact(id));
   };
 
-  const toRender = useSelector(visibleContacts)
+  const toRender = useSelector(visibleContacts);
 
   return (
     <ul>
-      {contacts.isLoading && <div>wait...</div>}
-      {contacts.error && <div>oops! a mistake is happend. Try again!</div> }
+      {contacts.isLoading && <ThreeDots></ThreeDots>}
+      {contacts.error && <div>oops! a mistake is happend. Try again!</div>}
       {toRender.map(person => {
         return (
           <li className={css.contact} key={person.id}>
-            <span className={css.personName}>
+            <Typography
+              sx={{
+                width: '300px',
+              }}
+            >
               {person.name}: {person.number}
-            </span>
-            <button className={css.deleteBtn} onClick={() => handleDelete(person.id)}>
-              Delete
-            </button>
+            </Typography>
+            <IconButton
+              sx={{visibility: 'none' }}
+              aria-label="delete"
+              size="small"
+              onClick={() => handleDelete(person.id)}
+            >
+              <DeleteOutlinedIcon />
+            </IconButton>
           </li>
         );
-      })}
+      })
+    }
     </ul>
   );
 };

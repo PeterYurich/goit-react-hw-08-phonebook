@@ -3,17 +3,50 @@ import { useDispatch } from 'react-redux';
 import { signup } from 'redux/auth/authOperations';
 import { Navigate } from 'react-router-dom';
 
-import css from '../../components/styles.module.scss';
 import { useSelector } from 'react-redux';
 import { selectAuth } from 'redux/selectors';
 
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Peter's React example project
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const SignupForm = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const authData = useSelector(selectAuth)
+  const authData = useSelector(selectAuth);
+
+  const theme = createTheme();
 
   const controlInput = evt => {
     const { name, value } = evt.target;
@@ -40,48 +73,116 @@ const SignupForm = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
     dispatch(signup({ name, email, password }));
-    setName('')
-    setEmail('')
-    setPassword('')
+    setName('');
+    setEmail('');
+    setPassword('');
   };
 
-  
   if (authData.isLoggedIn) {
-    return <Navigate to="/contacts" />
-  } 
+    return <Navigate to="/contacts" />;
+  }
 
   return (
-    <div className="container">
-      <h1>REGISTRATION:</h1>
-      <form onSubmit={handleSubmit} className={css.form}>
-        <label className={css.label}>
-          Nickname
-          <input type="name"
-           name="name" 
-           onChange={controlInput} 
-           value={name}/>
-        </label>
-        <label className={css.label}>
-          Email
-          <input type="email" 
-          name="email"
-           onChange={controlInput} 
-           value={email}/>
-        </label>
-        <label className={css.label}>
-          Password
-          <input type="passwword"
-           name="password" 
-           onChange={controlInput} 
-           value={password}/>
-        </label>
-        <button type="submit" className={css.button}>
-          Sign Up
-        </button>
-      </form>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              {/* <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid> */}
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="name"
+                  label="Nickname"
+                  name="name"
+                  autoComplete="name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={controlInput}
+                  value={email}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  onChange={controlInput}
+                  value={password}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
   );
 };
 
-
-export default SignupForm
+export default SignupForm;

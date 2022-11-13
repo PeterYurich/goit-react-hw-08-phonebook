@@ -1,0 +1,21 @@
+.auth {
+    display: flex;
+    align-items: center;
+}
+
+.authLink:not(:last-child):not(:last-child) {
+    margin-right: 20px;
+}
+
+.logedUser {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: large;
+    gap: 20px;
+    color: black;
+}
+
+.helloing {
+    margin-right: 10px;
+}

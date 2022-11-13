@@ -3,8 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { addContact } from 'redux/contacts/contactsOperations';
 
-import css from '../../components/styles.module.scss';
 import { selectAuth } from 'redux/selectors';
+
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import { ContactEmergencyOutlined } from '@mui/icons-material';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -14,7 +25,7 @@ const ContactForm = () => {
   const dispatch = useDispatch();
   const authData = useSelector(selectAuth)
   
-const controlInput = evt => {
+const inputController = evt => {
     const { name: inputName, value: inputValue } = evt.target;
 
     switch (inputName) {
@@ -38,46 +49,74 @@ const controlInput = evt => {
       alert(`A contact with the name "${name}" already exists!`)
       return
     }
+    if (name === '' || number === '') {
+      alert("Fill required fields, please!")
+      return
+    }
 
     dispatch(addContact({name, number}))
     setName('')
     setNumber('')
 
   };
+const theme = createTheme();
+
 
   return (
-    <form onSubmit={handleSubmit} className={css.form}>
-      ADD CONTACT
-      <label className={css.label}>
-        Name:
-        <input
-          className={css.input}
-          onChange={controlInput}
-          value={name}
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-      </label>
-      <label className={css.label}>
-        Phone number:
-        <input
-          className={css.input}
-          onChange={controlInput}
-          value={number}
-          type="tel"
-          name="phone"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </label>
-      <button className={css.button} type="submit">
-        Add contact
-      </button>
-    </form>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            // borderBottom: '2px solid grey',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <ContactEmergencyOutlined />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Create a contact
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              // autoFocus
+              onChange={inputController}
+              value={name} 
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              label="Phone"
+              type="phone"
+              id="phone"
+              name="phone"
+              onChange={inputController}
+              value={number} 
+            />
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              save
+            </Button>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 };
 

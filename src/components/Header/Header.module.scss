@@ -1,15 +1,32 @@
 .Header {
-    // display: flex;
-    // justify-content: space-between;
-    // width: 800px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 1200px;
     padding: 10px;
+}
+
+@media screen and (max-width:400px) {
+    .Header {
+        flex-direction: column;
+    }
 }
 
 .header_container {
     display: flex;
     justify-content: center;
-    
+    background-color: rgb(156, 183, 214);
+    border-radius: 4px;
+    box-shadow: -4px 9px 10px -10px rgba(17,16,74,1);
+
+    min-height: 80px;
     width: 100vw;
     border-bottom: 2px solid grey;
     margin-bottom: 10px;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+    font-size: large;
 }
