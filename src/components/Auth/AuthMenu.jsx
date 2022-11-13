@@ -40,7 +40,7 @@ export default function NavbarAuth() {
           <Typography className={css.helloing}>
             Hallo, {authData.user.name}
           </Typography>
-          <Button onClick={handleLogout}>Log out</Button>
+          <Button onClick={handleLogout} className={css.authLink}>Log out</Button>
         </div>
       )}
     </div>
