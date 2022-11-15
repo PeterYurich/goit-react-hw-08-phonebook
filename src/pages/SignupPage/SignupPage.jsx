@@ -11,8 +11,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -73,9 +71,9 @@ const SignupForm = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
     dispatch(signup({ name, email, password }));
-    setName('');
-    setEmail('');
-    setPassword('');
+    // setName('');
+    // setEmail('');
+    // setPassword('');
   };
 
   if (authData.isLoggedIn) {
@@ -126,6 +124,8 @@ const SignupForm = () => {
                   label="Nickname"
                   name="name"
                   autoComplete="name"
+                  onChange={controlInput}
+                  value={name}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -151,14 +151,6 @@ const SignupForm = () => {
                   autoComplete="new-password"
                   onChange={controlInput}
                   value={password}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
             </Grid>

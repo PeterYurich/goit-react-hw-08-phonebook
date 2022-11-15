@@ -1,3 +1,5 @@
+import { Blocks } from 'react-loader-spinner';
+
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
@@ -12,7 +14,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
 export const UserRoutes = () => {
   return (
-    <Suspense fallback={<p>Loading page...</p>}>
+    <Suspense fallback={<Blocks></Blocks>}>
       <Routes>
         <Route path="/" element={<PrivateRoute />}>
           <Route  path='/contacts' element={<Phonebook />}></Route>

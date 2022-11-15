@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { Typography } from '@mui/material';
 
-import { ThreeDots } from 'react-loader-spinner';
+import {Blocks} from 'react-loader-spinner';
 
 const ContactList = () => {
   const dispatch = useDispatch();
@@ -31,9 +31,9 @@ const ContactList = () => {
 
   return (
     <ul>
-      {contacts.isLoading && <ThreeDots></ThreeDots>}
-      {contacts.error && <div>oops! a mistake is happend. Try again!</div>}
-      {toRender.map(person => {
+      {contacts.length === 0 && <Blocks></Blocks>}
+      {/* {contacts.error && <div>Oops! A mistake is happend. Try again!</div>} */}
+      {!contacts.isLoading ? toRender.map(person => {
         return (
           <li className={css.contact} key={person.id}>
             <Typography
@@ -54,6 +54,7 @@ const ContactList = () => {
           </li>
         );
       })
+      : <Blocks></Blocks>
     }
     </ul>
   );

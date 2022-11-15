@@ -16,6 +16,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { Notify } from 'notiflix';
+
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -57,10 +59,9 @@ const inputController = evt => {
     dispatch(addContact({name, number}))
     setName('')
     setNumber('')
-
+    Notify.success(`${name} has added to you phonebook!`)
   };
 const theme = createTheme();
-
 
   return (
     <ThemeProvider theme={theme}>

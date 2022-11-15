@@ -13,12 +13,14 @@ const clearAuthHeader = () => {
 
 export const signup = createAsyncThunk('auth/signup', async (credentials,
     { rejectWithValue }) => {
-    console.log(credentials)
     try {
         const { data } = await axios.post('users/signup', credentials)
         setAuthHeader(data.token)
         return data
     } catch (error) {
+        if (error.response.status === 400) {
+            alert("Invalid data. Enter you real email, please!")
+        }
         return rejectWithValue(error.message)
     }
 })
@@ -30,6 +32,9 @@ export const login = createAsyncThunk('auth/login',
             setAuthHeader(data.token)
             return data
         } catch (error) {
+            if (error.response.status === 400) {
+                alert("Can't log in. Check you verification data, please!")
+            }
             return rejectWithValue(error.message)
         }
     })

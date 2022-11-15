@@ -1,5 +1,3 @@
-import css from './App.module.scss'
-
 import Header from "components/Header/Header";
 import { UserRoutes } from 'UserRoutes';
 import { useDispatch } from 'react-redux';
@@ -14,7 +12,7 @@ const App = () => {
   }, [dispatch])
 
   return (
-    <div className={css.container}>
+    <div>
       <Header></Header>
       <UserRoutes></UserRoutes>
     </div>

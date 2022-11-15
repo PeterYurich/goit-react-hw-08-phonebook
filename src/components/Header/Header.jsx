@@ -1,6 +1,5 @@
 import React from 'react';
 import NavbarAuth from '../Auth/AuthMenu';
-import { NavLink } from 'react-router-dom';
 import { ContactPhone } from '@mui/icons-material';
 import { Button } from '@mui/material';
 
@@ -11,13 +10,22 @@ function Header() {
     <div className={css.header_container}>
       <div className={css.Header}>
         <div>
-          <ContactPhone color="primary" size="large" />
+          <ContactPhone className={css.link} color="primary" size="large" />
         </div>
-        <NavLink className={css.link} to="/contacts">
-          <Button>
+        <div>
+          <Button
+            style = {{
+              transition: "transform 900ms cubic-bezier(0.4, 0, 0.2, 1)",
+              hover: {
+                  transform: "scale(1.03)",
+              }
+            }}
+            className={css.link}
+            href="/contacts"
+          >
             My phonebook
           </Button>
-        </NavLink>
+        </div>
         <NavbarAuth></NavbarAuth>
       </div>
     </div>

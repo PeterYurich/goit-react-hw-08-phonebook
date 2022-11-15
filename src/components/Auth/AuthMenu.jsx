@@ -1,6 +1,5 @@
 import css from './AuthMenu.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { selectAuth } from 'redux/selectors';
 import { logout } from 'redux/auth/authOperations';
@@ -28,12 +27,8 @@ export default function NavbarAuth() {
     <div className={css.auth}>
       {!authData.isLoggedIn ? (
         <div className={css.auth}>
-          <Link className={css.authLink} to="/signup">
-            <Button>Sign up</Button>
-          </Link>
-          <Link className={css.authLink} to="/login">
-            <Button>Log in</Button>
-          </Link>
+            <Button href='/signup'>Sign up</Button>
+            <Button href='/login'>Log in</Button>
         </div>
       ) : (
         <div className={css.logedUser}>

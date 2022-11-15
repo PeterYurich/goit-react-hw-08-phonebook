@@ -6,16 +6,11 @@ import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectAuth } from 'redux/selectors';
 
-// import css from '../../components/styles.module.scss';
-// import { Button } from '@mui/material';
-
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -69,8 +64,8 @@ function LoginForm() {
   const handleSubmit = evt => {
     evt.preventDefault();
     dispatch(login({ email, password }));
-    setEmail('')
-    setPassword('')
+    // setEmail('')
+    // setPassword('')
   };
 
 
@@ -117,10 +112,10 @@ function LoginForm() {
               onChange={inputController}
               value={password} 
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
@@ -130,11 +125,6 @@ function LoginForm() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
