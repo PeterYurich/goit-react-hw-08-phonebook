@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 import { selectAuth } from 'redux/selectors';
+import { useNavigate } from 'react-router-dom';
 
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
@@ -27,7 +28,6 @@ function Copyright(props) {
         Peter's React example project 
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }
@@ -40,6 +40,8 @@ function LoginForm() {
 
   const authData = useSelector(selectAuth)
   const dispatch = useDispatch();
+
+  const navigate = useNavigate()
 
   if (authData.isLoggedIn) {
     return <Navigate to="/contacts" />
@@ -64,8 +66,6 @@ function LoginForm() {
   const handleSubmit = evt => {
     evt.preventDefault();
     dispatch(login({ email, password }));
-    // setEmail('')
-    // setPassword('')
   };
 
 
@@ -112,10 +112,7 @@ function LoginForm() {
               onChange={inputController}
               value={password} 
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
+
             <Button
               type="submit"
               fullWidth
@@ -126,7 +123,7 @@ function LoginForm() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link href="" onClick={() => navigate("/signup")} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

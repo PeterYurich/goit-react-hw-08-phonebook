@@ -2,10 +2,12 @@ import React from 'react';
 import NavbarAuth from '../Auth/AuthMenu';
 import { ContactPhone } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import css from './Header.module.scss';
 
 function Header() {
+  const navigate = useNavigate()
   return (
     <div className={css.header_container}>
       <div className={css.Header}>
@@ -14,14 +16,8 @@ function Header() {
         </div>
         <div>
           <Button
-            // style = {{
-            //   transition: "transform 900ms cubic-bezier(0.4, 0, 0.2, 1)",
-            //   hover: {
-            //       transform: "scale(1.03)",
-            //   }
-            // }}
             className={css.link}
-            href="/contacts"
+            onClick={() => navigate('/contacts')}
           >
             My phonebook
           </Button>

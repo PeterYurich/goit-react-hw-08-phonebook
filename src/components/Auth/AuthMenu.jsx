@@ -6,10 +6,12 @@ import { logout } from 'redux/auth/authOperations';
 
 import { Button } from '@mui/material';
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavbarAuth() {
   const authData = useSelector(selectAuth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout(authData.token));
@@ -27,15 +29,17 @@ export default function NavbarAuth() {
     <div className={css.auth}>
       {!authData.isLoggedIn ? (
         <div className={css.auth}>
-            <Button href='/signup'>Sign up</Button>
-            <Button href='/login'>Log in</Button>
+          <Button onClick={() => navigate('/login')}>Log in</Button>
+          <Button onClick={() => navigate('/signup')}>Sign up</Button>
         </div>
       ) : (
         <div className={css.logedUser}>
           <Typography className={css.helloing}>
             Hallo, {authData.user.name}
           </Typography>
-          <Button onClick={handleLogout} className={css.authLink}>Log out</Button>
+          <Button onClick={handleLogout} className={css.authLink}>
+            Log out
+          </Button>
         </div>
       )}
     </div>
