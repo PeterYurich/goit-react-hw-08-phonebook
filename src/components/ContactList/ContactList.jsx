@@ -2,7 +2,11 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectContacts, visibleContacts } from 'redux/selectors';
+import {
+  selectContacts,
+  visibleContacts,
+  selectContactsStatus,
+} from 'redux/selectors';
 import {
   deleteContact,
   fetchContacts,
@@ -13,49 +17,58 @@ import IconButton from '@mui/material/IconButton';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { Typography } from '@mui/material';
 
-import {Blocks} from 'react-loader-spinner';
+import { Notify } from 'notiflix';
+
+import LoaderBlock from 'components/Loaders/LoaderBlock';
+import { RingLoader } from 'react-spinners';
 
 const ContactList = () => {
   const dispatch = useDispatch();
+  const contactsStatus = useSelector(selectContactsStatus);
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
   const contacts = useSelector(selectContacts);
-  const handleDelete = id => {
+  const handleDelete = (id, name) => {
     dispatch(deleteContact(id));
+    Notify.info(`${name} is deleted from you phonebook succesfull!`);
   };
 
   const toRender = useSelector(visibleContacts);
 
   return (
     <ul>
-      {contacts.length === 0 && <Blocks></Blocks>}
+      {contactsStatus === 'fetching' && <LoaderBlock />}
       {/* {contacts.error && <div>Oops! A mistake is happend. Try again!</div>} */}
-      {!contacts.isLoading ? toRender.map(person => {
-        return (
-          <li className={css.contact} key={person.id}>
-            <Typography
-              sx={{
-                width: '300px',
-              }}
-            >
-              {person.name}: {person.number}
-            </Typography>
-            <IconButton
-              sx={{visibility: 'none' }}
-              aria-label="delete"
-              size="small"
-              onClick={() => handleDelete(person.id)}
-            >
-              <DeleteOutlinedIcon />
-            </IconButton>
-          </li>
-        );
-      })
-      : <Blocks></Blocks>
-    }
+      {!contacts.isLoading &&
+        toRender.map(person => {
+          return (
+            <li className={css.contact} key={person.id}>
+              <Typography
+                sx={{
+                  width: '300px',
+                }}
+              >
+                {person.name}: {person.number}
+              </Typography>
+
+              {contactsStatus === person.id ? (
+                <RingLoader size={32} />
+              ) : (
+                <IconButton
+                  sx={{ visibility: 'none' }}
+                  aria-label="delete"
+                  size="small"
+                  onClick={() => handleDelete(person.id, person.name)}
+                >
+                  <DeleteOutlinedIcon />
+                </IconButton>
+              )}
+            </li>
+          );
+        })}
     </ul>
   );
 };

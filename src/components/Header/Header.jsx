@@ -10,7 +10,7 @@ function Header() {
     <div className={css.header_container}>
       <div className={css.Header}>
         <div>
-          <ContactPhone className={css.link} color="primary" size="large" />
+          <ContactPhone color="primary" size="large" />
         </div>
         <div>
           <Button

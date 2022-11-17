@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
+import { selectContacts, selectContactsStatus } from 'redux/selectors';
 import { addContact } from 'redux/contacts/contactsOperations';
 
 import { selectAuth } from 'redux/selectors';
@@ -17,17 +17,19 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { Notify } from 'notiflix';
-
+// import LoaderBlock from 'components/Loaders/LoaderBlock';
+import { Blocks } from 'react-loader-spinner';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const contacts = useSelector(selectContacts);
+  const contactsStatus = useSelector(selectContactsStatus);
 
   const dispatch = useDispatch();
-  const authData = useSelector(selectAuth)
-  
-const inputController = evt => {
+  const authData = useSelector(selectAuth);
+
+  const inputController = evt => {
     const { name: inputName, value: inputValue } = evt.target;
 
     switch (inputName) {
@@ -45,23 +47,27 @@ const inputController = evt => {
   const handleSubmit = evt => {
     evt.preventDefault();
     if (!authData.isLoggedIn) {
-      alert('Sign up to start creating your contact list or log in if you have your own account')
+      alert(
+        'Sign up to start creating your contact list or log in if you have your own account'
+      );
     }
-    if (contacts.find(person => person.name.toLowerCase() === name.toLowerCase())) {
-      alert(`A contact with the name "${name}" already exists!`)
-      return
+    if (
+      contacts.find(person => person.name.toLowerCase() === name.toLowerCase())
+    ) {
+      alert(`A contact with the name "${name}" already exists!`);
+      return;
     }
     if (name === '' || number === '') {
-      alert("Fill required fields, please!")
-      return
+      alert('Fill required fields, please!');
+      return;
     }
 
-    dispatch(addContact({name, number}))
-    setName('')
-    setNumber('')
-    Notify.success(`${name} has added to you phonebook!`)
+    dispatch(addContact({ name, number }));
+    setName('');
+    setNumber('');
+    Notify.success(`${name} has added to you phonebook!`);
   };
-const theme = createTheme();
+  const theme = createTheme();
 
   return (
     <ThemeProvider theme={theme}>
@@ -82,7 +88,12 @@ const theme = createTheme();
           <Typography component="h1" variant="h5">
             Create a contact
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -92,7 +103,7 @@ const theme = createTheme();
               name="name"
               // autoFocus
               onChange={inputController}
-              value={name} 
+              value={name}
             />
             <TextField
               margin="normal"
@@ -103,7 +114,7 @@ const theme = createTheme();
               id="phone"
               name="phone"
               onChange={inputController}
-              value={number} 
+              value={number}
             />
 
             <Button
@@ -112,7 +123,13 @@ const theme = createTheme();
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              save
+              {contactsStatus === 'adding' ? (
+                // <div>
+                  <Blocks height={25} />
+                // </div>
+              ) : (
+                'save'
+              )}
             </Button>
           </Box>
         </Box>

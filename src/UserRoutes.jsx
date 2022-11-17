@@ -1,11 +1,11 @@
-import { Blocks } from 'react-loader-spinner';
-
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
   PrivateRoute,
   PublicRoute
 } from 'components/Routewrapper';
+
+import LoaderBlock from 'components/Loaders/LoaderBlock';
 
 const Phonebook = lazy(() => import('./pages/PhonebookPage/Phonebook'));
 const SignupPage = lazy(() => import('./pages/SignupPage/SignupPage'));
@@ -14,7 +14,9 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
 export const UserRoutes = () => {
   return (
-    <Suspense fallback={<Blocks></Blocks>}>
+    <Suspense fallback={
+      <LoaderBlock></LoaderBlock>
+    }>
       <Routes>
         <Route path="/" element={<PrivateRoute />}>
           <Route  path='/contacts' element={<Phonebook />}></Route>

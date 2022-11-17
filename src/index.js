@@ -15,12 +15,14 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import LoaderBlock from 'components/Loaders/LoaderBlock';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor} >
+    <PersistGate loading={<LoaderBlock/>} persistor={persistor} >
       <BrowserRouter 
-      basename="goit-react-hw-08-phonebook"
+      basename="/goit-react-hw-08-phonebook/"
       >
         <App />
       </BrowserRouter>
