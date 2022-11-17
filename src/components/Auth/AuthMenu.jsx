@@ -35,7 +35,7 @@ export default function NavbarAuth() {
       ) : (
         <div className={css.logedUser}>
           <Typography className={css.helloing}>
-            Hallo, {authData.user.name}
+            Hello, {authData.user.name}
           </Typography>
           <Button onClick={handleLogout} className={css.authLink}>
             Log out
