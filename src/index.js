@@ -22,7 +22,7 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={<LoaderBlock/>} persistor={persistor} >
       <BrowserRouter 
-      basename="/goit-react-hw-08-phonebook/"
+      basename="goit-react-hw-08-phonebook"
       >
         <App />
       </BrowserRouter>
