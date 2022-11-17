@@ -7,19 +7,18 @@ import { useNavigate } from 'react-router-dom';
 import css from './Header.module.scss';
 
 function Header() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className={css.header_container}>
       <div className={css.Header}>
-        <div>
-          <ContactPhone color="primary" size="large" />
-        </div>
-        <div>
+        <div className={css.logo}>
           <Button
-            className={css.link}
+            // className={css.link}
             onClick={() => navigate('/contacts')}
           >
-            My phonebook
+            <ContactPhone 
+            style = {{margin: "5px"}}
+             color="primary" size="large" /> My phonebook
           </Button>
         </div>
         <NavbarAuth></NavbarAuth>
